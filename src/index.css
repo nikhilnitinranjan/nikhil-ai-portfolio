@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #020617;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.background-3d {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 900px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(8, 47, 73, 0.38), transparent 48%),
+    #020617;
+}
+
+.background-3d__glow {
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  animation: background-drift 14s ease-in-out infinite alternate;
+}
+
+.background-3d__glow--one {
+  top: -14rem;
+  left: -10rem;
+  background: #0891b2;
+}
+
+.background-3d__glow--two {
+  right: -14rem;
+  bottom: -15rem;
+  background: #1d4ed8;
+  animation-delay: -5s;
+}
+
+.background-3d__grid {
+  position: absolute;
+  inset: 42% -20% -35%;
+  transform: rotateX(62deg) translateZ(-80px);
+  transform-origin: center top;
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.28) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, black 25%, transparent 90%);
+  animation: grid-drift 12s linear infinite;
+}
+
+.background-3d__scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: scene-float 16s ease-in-out infinite alternate;
+}
+
+.background-3d__cube,
+.background-3d__ring {
+  position: absolute;
+  display: block;
+  transform-style: preserve-3d;
+}
+
+.background-3d__cube {
+  width: 78px;
+  height: 78px;
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.14), inset 0 0 24px rgba(34, 211, 238, 0.08);
+  animation: cube-spin 18s linear infinite;
+}
+
+.background-3d__cube--one {
+  top: 22%;
+  left: 12%;
+  transform: rotateX(62deg) rotateZ(25deg);
+}
+
+.background-3d__cube--two {
+  right: 13%;
+  bottom: 18%;
+  width: 52px;
+  height: 52px;
+  animation-duration: 13s;
+  animation-direction: reverse;
+}
+
+.background-3d__ring {
+  width: 190px;
+  height: 190px;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 50%;
+  box-shadow: 0 0 35px rgba(34, 211, 238, 0.1);
+  animation: ring-orbit 20s ease-in-out infinite;
+}
+
+.background-3d__ring--one {
+  top: 16%;
+  right: 18%;
+  transform: rotateX(68deg) rotateY(25deg);
+}
+
+.background-3d__ring--two {
+  bottom: 10%;
+  left: 24%;
+  width: 120px;
+  height: 120px;
+  animation-delay: -8s;
+  animation-direction: reverse;
+}
+
+@keyframes background-drift {
+  to {
+    transform: translate3d(8vw, 5vh, 0) scale(1.12);
+  }
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 0 72px, 72px 0;
+  }
+}
+
+@keyframes scene-float {
+  to {
+    transform: rotateY(8deg) rotateX(4deg) translateY(-12px);
+  }
+}
+
+@keyframes cube-spin {
+  to {
+    transform: rotateX(422deg) rotateY(360deg) rotateZ(385deg);
+  }
+}
+
+@keyframes ring-orbit {
+  50% {
+    transform: rotateX(70deg) rotateY(180deg) translate3d(0, -18px, 50px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-3d__glow,
+  .background-3d__grid,
+  .background-3d__scene,
+  .background-3d__cube,
+  .background-3d__ring {
+    animation: none;
+  }
+}
